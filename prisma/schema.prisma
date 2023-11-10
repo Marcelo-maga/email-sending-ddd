@@ -8,62 +8,39 @@ datasource db {
 }
 
 model User {
-  idUser       String        @id @default(uuid())
-  name         String
-  email        String        @unique
-  password     String
-  Professional Professional?
-  Client       Client?
+  idUser    String    @id @default(uuid())
+  name      String
+  email     String    @unique
+  password  String
+  createdAt DateTime  @default(now())
+  active    Boolean   @default(true)
+  Student   Student[]
 }
 
-model Client {
-  idClient         String        @id @default(uuid())
-  idUser           String        @unique
-  user             User          @relation(fields: [idUser], references: [idUser], onDelete: Cascade, onUpdate: Cascade)
-  Company          Company?      @relation(fields: [companyIdCompany], references: [idCompany])
-  companyIdCompany String?
-  Appointment      Appointment[]
+model Student {
+  idStudent             String                  @id @default(uuid())
+  idUser                String
+  user                  User                    @relation(fields: [idUser], references: [idUser])
+  subjects              Subject[]
+  ReportCardPersistence ReportCardPersistence[]
 }
 
-model Professional {
-  idProfessional String        @id @default(uuid())
-  idUser         String        @unique
-  idCompany      String
-  company        Company       @relation(fields: [idCompany], references: [idCompany])
-  user           User          @relation(fields: [idUser], references: [idUser])
-  Appointment    Appointment[]
+model Subject {
+  idSubject             String                  @id @default(uuid())
+  name                  String
+  value                 Decimal
+  available             Boolean                 @default(true)
+  ead                   Boolean                 @default(false)
+  idStudent             String
+  student               Student                 @relation(fields: [idStudent], references: [idStudent])
+  ReportCardPersistence ReportCardPersistence[]
 }
 
-model Company {
-  idCompany     String         @id @default(uuid())
-  cnpj          String         @unique
-  name          String
-  creationDate  DateTime
-  Professionals Professional[]
-  Clients       Client[]
-  Service       Service[]
-}
-
-model Service {
-  idService   String        @id @default(uuid())
-  idCompany   String
-  name        String
-  description String
-  price       Float
-  duration    Int
-  appointment Appointment[]
-  company     Company       @relation(fields: [idCompany], references: [idCompany])
-}
-
-model Appointment {
-  idAppointment         String       @id @default(uuid())
-  idClient              String
-  idProfessional        String
-  idService             String
-  date                  DateTime
-  approved              Boolean
-  createdByProfessional Boolean
-  client                Client       @relation(fields: [idClient], references: [idClient])
-  professional          Professional @relation(fields: [idProfessional], references: [idProfessional])
-  service               Service      @relation(fields: [idService], references: [idService])
+model ReportCardPersistence {
+  idReportCard String  @id @default(uuid())
+  idStudent    String
+  idSubject    String
+  student      Student @relation(fields: [idStudent], references: [idStudent])
+  subject      Subject @relation(fields: [idSubject], references: [idSubject])
+  grade        Decimal
 }
