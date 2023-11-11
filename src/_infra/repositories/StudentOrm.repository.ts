@@ -3,7 +3,7 @@ import { StudentRepository } from "../interfaces/Student.repository";
 import { ReportCardPersistence } from "src/secretary/domain/ReportCardPersistence";
 import { PrismaClient } from "@prisma/client";
 import { User } from "src/userManagement/domain/User";
-import { parse } from "path";
+
 
 export class StudentOrmRepository implements StudentRepository {
   public constructor(private prismaClient: PrismaClient) {}
@@ -31,7 +31,9 @@ export class StudentOrmRepository implements StudentRepository {
       },
     });
   }
-  public async getAllReportCardsPersistence(): Promise<ReportCardPersistence[]> {
+  public async getAllReportCardsPersistence(): Promise<
+    ReportCardPersistence[]
+  > {
     const dbResult = await this.prismaClient.reportCardPersistence.findMany();
 
     return dbResult.map((reportCardPersistence) => {
@@ -40,7 +42,7 @@ export class StudentOrmRepository implements StudentRepository {
         idReportCardPersistence: reportCardPersistence.idReportCard,
         idStudent: reportCardPersistence.idStudent,
         idSubject: reportCardPersistence.idSubject,
-      })
+      });
     });
   }
   public async getAllStudents(): Promise<Student[]> {
@@ -57,8 +59,8 @@ export class StudentOrmRepository implements StudentRepository {
         name: student.user.name,
         password: student.user.password,
         idUser: student.user.idUser,
-      })
-    })
+      });
+    });
   }
   public async getStudent(id: string): Promise<Student> {
     throw new Error("Method not implemented.");

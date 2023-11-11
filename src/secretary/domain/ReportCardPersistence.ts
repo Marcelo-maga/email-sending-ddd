@@ -6,7 +6,7 @@ export class ReportCardPersistence {
   public idSubject!: string;
   public grade!: Prisma.Decimal;
 
-  constructor(reportCard: ReportCardPersistence) {
+  constructor(reportCard?: ReportCardPersistence) {
     Object.assign(this, reportCard);
   }
 }

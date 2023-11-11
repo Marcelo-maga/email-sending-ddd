@@ -2,6 +2,7 @@ import { User } from "src/userManagement/domain/User";
 import { Subject } from "./Subject";
 
 export class Student extends User {
+  public idStudent?: string;
   public subjects?: Subject[];
 
   constructor(user: User, subjects?: Subject[]) {
