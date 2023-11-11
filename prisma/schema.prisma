@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_CONNECTOR")
 }
 
@@ -37,7 +37,7 @@ model Subject {
 }
 
 model ReportCardPersistence {
-  idReportCard String  @id @default(uuid())
+  idReportCardPersistence String  @id @default(uuid())
   idStudent    String
   idSubject    String
   student      Student @relation(fields: [idStudent], references: [idStudent])

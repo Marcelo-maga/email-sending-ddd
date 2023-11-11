@@ -8,5 +8,5 @@ export interface StudentRepository {
   public updateStudent(student: Student): Promise<void>;
   public deleteStudent(id: string): Promise<void>;
   public persistReportCard(reportCardPersistence: ReportCardPersistence): Promise<void>;
-  public getAllReportCards: ReportCardPersistence[];
+  public getAllReportCards(): ReportCardPersistence[];
 }
