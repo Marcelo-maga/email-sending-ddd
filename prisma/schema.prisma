@@ -23,6 +23,7 @@ model Student {
   user                  User                    @relation(fields: [idUser], references: [idUser])
   subjects              Subject[]
   ReportCardPersistence ReportCardPersistence[]
+  Enroll                Enroll[]
 }
 
 model Subject {
@@ -34,13 +35,24 @@ model Subject {
   idStudent             String
   student               Student                 @relation(fields: [idStudent], references: [idStudent])
   ReportCardPersistence ReportCardPersistence[]
+  Enroll                Enroll[]
 }
 
 model ReportCardPersistence {
   idReportCardPersistence String  @id @default(uuid())
-  idStudent    String
-  idSubject    String
-  student      Student @relation(fields: [idStudent], references: [idStudent])
-  subject      Subject @relation(fields: [idSubject], references: [idSubject])
-  grade        Decimal
+  idStudent               String
+  idSubject               String
+  student                 Student @relation(fields: [idStudent], references: [idStudent])
+  subject                 Subject @relation(fields: [idSubject], references: [idSubject])
+  grade                   Decimal
+}
+
+model Enroll {
+  idEnroll  String   @id @default(uuid())
+  idStudent String
+  idSubject String
+  student   Student  @relation(fields: [idStudent], references: [idStudent])
+  subject   Subject  @relation(fields: [idSubject], references: [idSubject])
+  createdAt DateTime @default(now())
+  active    Boolean  @default(true)
 }

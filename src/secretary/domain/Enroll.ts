@@ -6,8 +6,6 @@ export class Enroll {
 
   public idStudent!: string;
   public student!: Student;
-  public idSubject!: string;
-  public subject!: Subject;
   public date!: Date;
 
   constructor(enroll: Enroll) {
