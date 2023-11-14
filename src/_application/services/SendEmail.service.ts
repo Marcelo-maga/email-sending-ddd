@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 
-class SendEmail {
+export class SendEmailService {
   private username: string = process.env.MAIL_USERNAME!;
   private pass: string = process.env.MAIL_PASSWORD!;
   private clientId: string = process.env.OAUTH_CLIENTID!;
@@ -8,16 +8,16 @@ class SendEmail {
   private token: string = process.env.OAUTH_REFRESH_TOKEN!;
 
   execute(studentName: string) {
-    let transporter = nodemailer.createTransport({ 
-      service: 'gmail', 
+    let transporter = nodemailer.createTransport({
+      service: "gmail",
       secure: false,
       auth: {
         user: this.username,
         pass: this.pass,
         clientId: this.clientId,
         clientSecret: this.clientSecret,
-        refreshToken: this.token
-      }
+        refreshToken: this.token,
+      },
     });
 
     let mailOptions = {
